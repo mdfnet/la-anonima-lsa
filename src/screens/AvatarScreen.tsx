@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { SignLanguageFrame } from '../components/SignLanguageFrame';
 
 interface AvatarScreenProps {
   onNavigate: (screen: string) => void;
@@ -19,14 +20,11 @@ export function AvatarScreen({ onNavigate }: AvatarScreenProps) {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Respuestas en Señas</h2>
         </div>
 
-        <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white">
-          <iframe
-            src="https://avatar.dillo.ai/"
-            title="Avatar de lengua de señas"
-            className="w-full h-[500px] sm:h-[600px]"
-            allow="camera; microphone"
-          />
-        </div>
+        <SignLanguageFrame
+          src="https://avatar.dillo.ai/"
+          title="Avatar de lengua de señas"
+          heightClass="h-[500px] sm:h-[600px]"
+        />
 
         <p className="text-center text-gray-500 text-sm">
           El avatar te mostrara las respuestas de nuestro equipo traducidas a lengua de señas.

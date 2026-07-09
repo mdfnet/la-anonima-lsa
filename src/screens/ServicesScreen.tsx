@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Hand, MessageCircle, ArrowRight, ShoppingCart, CreditCard, QrCode, Wallet, ScanLine, AlertTriangle, Store, Volume2, Flower2, Beef, LeafyGreen, Croissant, Milk, Wine, SprayCan } from 'lucide-react';
 import { useAccessibility } from '../context/AccessibilityContext';
+import { QuickActionDisplay } from '../components/QuickActionDisplay';
 
 interface ServicesScreenProps {
   onNavigate: (screen: string) => void;
@@ -14,17 +16,17 @@ const quickActionGroups: QuickActionGroup[] = [
   {
     title: 'Compras y cajas',
     actions: [
-      { icon: ShoppingCart, label: 'Necesito ayuda con mi compra', message: 'Ayuda en caja' },
-      { icon: CreditCard, label: 'Tarjetas', message: 'Consulta tarjetas' },
-      { icon: QrCode, label: 'Pago con QR', message: 'Ayuda con QR' },
-      { icon: Wallet, label: 'Medios de pago', message: 'Medios de pago' },
-      { icon: ScanLine, label: 'Quiero pagar mis productos', message: 'Ayuda en cajas' },
+      { icon: ShoppingCart, label: 'Necesito ayuda con mi compra', message: 'Necesito ayuda con mi compra' },
+      { icon: CreditCard, label: 'Tarjetas', message: 'Tengo una consulta sobre tarjetas' },
+      { icon: QrCode, label: 'Pago con QR', message: 'Quiero pagar con QR' },
+      { icon: Wallet, label: 'Medios de pago', message: 'Quiero conocer los medios de pago' },
+      { icon: ScanLine, label: 'Quiero pagar mis productos', message: 'Ayuda con el pago de mis productos' },
     ],
   },
   {
     title: 'Reclamos',
     actions: [
-      { icon: AlertTriangle, label: 'Hacer un reclamo', message: 'Reclamo' },
+      { icon: AlertTriangle, label: 'Hacer un reclamo', message: 'Quiero hacer un reclamo' },
     ],
   },
   {
@@ -44,6 +46,7 @@ const quickActionGroups: QuickActionGroup[] = [
 
 export function ServicesScreen({ onNavigate }: ServicesScreenProps) {
   const { speak, ttsEnabled } = useAccessibility();
+  const [activeMessage, setActiveMessage] = useState<string | null>(null);
 
   function handleService(screen: string, label: string) {
     speak(label);
@@ -52,6 +55,7 @@ export function ServicesScreen({ onNavigate }: ServicesScreenProps) {
 
   function handleQuickAction(message: string) {
     speak(message);
+    setActiveMessage(message);
   }
 
   return (
@@ -142,6 +146,8 @@ export function ServicesScreen({ onNavigate }: ServicesScreenProps) {
           ))}
         </div>
       </div>
+
+      <QuickActionDisplay message={activeMessage} onClose={() => setActiveMessage(null)} />
     </div>
   );
 }

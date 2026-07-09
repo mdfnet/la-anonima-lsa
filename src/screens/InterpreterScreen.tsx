@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { SignLanguageFrame } from '../components/SignLanguageFrame';
 
 interface InterpreterScreenProps {
   onNavigate: (screen: string) => void;
@@ -19,14 +20,11 @@ export function InterpreterScreen({ onNavigate }: InterpreterScreenProps) {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Intérprete de Señas</h2>
         </div>
 
-        <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white">
-          <iframe
-            src="https://app.dillo.ai/interprete"
-            title="Intérprete de lengua de señas"
-            className="w-full h-[450px] sm:h-[550px]"
-            allow="camera; microphone"
-          />
-        </div>
+        <SignLanguageFrame
+          src="https://app.dillo.ai/interprete"
+          title="Intérprete de lengua de señas"
+          heightClass="h-[450px] sm:h-[550px]"
+        />
 
         <p className="text-center text-gray-500 text-sm">
           Usá el intérprete para comunicarte con nuestro equipo en lengua de señas en tiempo real.

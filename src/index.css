@@ -21,7 +21,6 @@
 
   .large-text body,
   .large-text p,
-  .large-text span,
   .large-text a,
   .large-text button,
   .large-text li {
@@ -93,6 +92,18 @@
 }
 
 @layer components {
+  .marquee-track {
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .marquee-item,
+  .marquee-item img {
+    touch-action: pan-y pinch-zoom;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
   .btn-primary {
     @apply bg-brand-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg
       hover:bg-brand-600 active:bg-brand-700 transition-colors duration-150

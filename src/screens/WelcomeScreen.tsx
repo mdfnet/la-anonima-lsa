@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useAccessibility } from '../context/AccessibilityContext';
+import { VolumeReminder } from '../components/VolumeReminder';
 
 interface WelcomeScreenProps {
   onNavigate: (screen: string) => void;
@@ -14,9 +16,19 @@ const promoImages = [
 ];
 
 export function WelcomeScreen({ onNavigate }: WelcomeScreenProps) {
-  const { speak } = useAccessibility();
+  const { speak, ttsEnabled } = useAccessibility();
+  const [showVolumeReminder, setShowVolumeReminder] = useState(false);
 
   function handleStart() {
+    if (ttsEnabled) {
+      setShowVolumeReminder(true);
+      return;
+    }
+    onNavigate('services');
+  }
+
+  function handleContinue() {
+    setShowVolumeReminder(false);
     speak('Seleccione un servicio');
     onNavigate('services');
   }
@@ -44,7 +56,7 @@ export function WelcomeScreen({ onNavigate }: WelcomeScreenProps) {
       </div>
 
       {/* Image strip */}
-      <div className="w-full mt-12 overflow-hidden">
+      <div className="w-full mt-12 overflow-hidden marquee-track">
         <div className="flex gap-4 animate-[scroll_25s_linear_infinite] w-max">
           {[...promoImages, ...promoImages].map((img, i) => (
             img.link ? (
@@ -53,22 +65,24 @@ export function WelcomeScreen({ onNavigate }: WelcomeScreenProps) {
                 href={img.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 w-40 sm:w-52 h-56 sm:h-72 rounded-xl overflow-hidden shadow-md border border-gray-100 bg-white flex items-center justify-center cursor-pointer"
+                className="marquee-item flex-shrink-0 w-40 sm:w-52 h-56 sm:h-72 rounded-xl overflow-hidden shadow-md border border-gray-100 bg-white flex items-center justify-center cursor-pointer"
               >
                 <img
                   src={img.src}
                   alt={img.alt}
+                  draggable={false}
                   className={`w-full h-full ${img.isLogo ? 'object-contain p-5' : 'object-cover'}`}
                 />
               </a>
             ) : (
               <div
                 key={i}
-                className="flex-shrink-0 w-40 sm:w-52 h-56 sm:h-72 rounded-xl overflow-hidden shadow-md border border-gray-100 bg-white flex items-center justify-center"
+                className="marquee-item flex-shrink-0 w-40 sm:w-52 h-56 sm:h-72 rounded-xl overflow-hidden shadow-md border border-gray-100 bg-white flex items-center justify-center"
               >
                 <img
                   src={img.src}
                   alt={img.alt}
+                  draggable={false}
                   className={`w-full h-full ${img.isLogo ? 'object-contain p-5' : 'object-cover'}`}
                 />
               </div>
@@ -80,6 +94,8 @@ export function WelcomeScreen({ onNavigate }: WelcomeScreenProps) {
       <p className="text-sm text-gray-400 mt-8">
         Usa la barra de accesibilidad en la parte inferior para ajustar la pantalla a tus necesidades.
       </p>
+
+      <VolumeReminder open={showVolumeReminder} onContinue={handleContinue} />
     </div>
   );
 }
