@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button, a, [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .large-text body,
+  .large-text p,
+  .large-text span,
+  .large-text a,
+  .large-text button,
+  .large-text li {
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+  }
+
+  .large-text h1 {
+    font-size: 2.5rem !important;
+  }
+
+  .large-text h2 {
+    font-size: 2rem !important;
+  }
+
+  .large-text h3 {
+    font-size: 1.75rem !important;
+  }
+
+  .high-contrast {
+    --brand-500: #003366;
+    --bg-primary: #000000;
+    --bg-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #f0f0f0;
+    --border-color: #ffffff;
+  }
+
+  .high-contrast * {
+    border-color: #ffffff !important;
+  }
+
+  .high-contrast .bg-white {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+  }
+
+  .high-contrast .bg-gray-50,
+  .high-contrast .bg-gray-100 {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  .high-contrast .text-gray-600,
+  .high-contrast .text-gray-700,
+  .high-contrast .text-gray-500 {
+    color: #e0e0e0 !important;
+  }
+
+  .high-contrast .text-gray-900,
+  .high-contrast .text-gray-800 {
+    color: #ffffff !important;
+  }
+
+  .high-contrast .shadow-md,
+  .high-contrast .shadow-lg,
+  .high-contrast .shadow-xl {
+    box-shadow: 0 0 0 2px #ffffff !important;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg
+      hover:bg-brand-600 active:bg-brand-700 transition-colors duration-150
+      focus:outline-none focus:ring-4 focus:ring-brand-200
+      text-lg min-h-[56px] flex items-center justify-center gap-3;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-brand-500 font-semibold py-4 px-8 rounded-2xl shadow-lg
+      border-2 border-brand-500
+      hover:bg-brand-50 active:bg-brand-100 transition-colors duration-150
+      focus:outline-none focus:ring-4 focus:ring-brand-200
+      text-lg min-h-[56px] flex items-center justify-center gap-3;
+  }
+
+  .card {
+    @apply bg-white rounded-3xl shadow-lg p-6 transition-all duration-200
+      hover:shadow-xl
+      border border-gray-100;
+  }
+
+  .privacy-overlay {
+    @apply fixed inset-0 bg-black/95 z-[100] flex items-center justify-center;
+  }
+}
