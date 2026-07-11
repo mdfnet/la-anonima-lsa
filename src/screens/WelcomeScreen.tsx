@@ -2,16 +2,20 @@ import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useAccessibility } from '../context/AccessibilityContext';
 import { VolumeReminder } from '../components/VolumeReminder';
+import appLa from '../assets/app_la.jpg';
+import tla from '../assets/tla.jpg';
+import whastapp from '../assets/whastapp.jpg';
+import educacionFinanciera from '../assets/educacion_finaciera.jpg';
 
 interface WelcomeScreenProps {
   onNavigate: (screen: string) => void;
 }
 
 const promoImages = [
-  { src: '/App_LA.jpg', alt: 'La Anonima App', isLogo: false, link: '' },
-  { src: '/TLA.jpg', alt: 'Tarjeta La Anonima', isLogo: false, link: '' },
-  { src: '/Whastapp.jpg', alt: 'Canal de WhatsApp', isLogo: false, link: '' },
-  { src: '/Educacion_finaciera.jpg', alt: 'Educacion financiera', isLogo: false, link: '' },
+  { src: appLa, alt: 'La Anonima App', isLogo: false, link: '' },
+  { src: tla, alt: 'Tarjeta La Anonima', isLogo: false, link: '' },
+  { src: whastapp, alt: 'Canal de WhatsApp', isLogo: false, link: '' },
+  { src: educacionFinanciera, alt: 'Educacion financiera', isLogo: false, link: '' },
   { src: 'https://cdn.laanonima.com/tripleimpacto/logo.png', alt: 'Triple Impacto', isLogo: true, link: 'https://www.laanonima.com.ar/empresa/triple-impacto/' },
 ];
 

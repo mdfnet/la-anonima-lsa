@@ -1,20 +1,33 @@
 import { useState, useEffect } from 'react';
+import appLa from '../assets/app_la.jpg';
+import tla from '../assets/tla.jpg';
+import whastapp from '../assets/whastapp.jpg';
+import educacionFinanciera from '../assets/educacion_finaciera.jpg';
 
 interface SplashScreenProps {
   onFinish: () => void;
 }
 
 const splashImages = [
-  { src: '/App_LA.jpg', alt: 'La Anonima App', isLogo: false, link: '' },
-  { src: '/TLA.jpg', alt: 'Tarjeta La Anonima', isLogo: false, link: '' },
-  { src: '/Whastapp.jpg', alt: 'Canal de WhatsApp', isLogo: false, link: '' },
-  { src: '/Educacion_finaciera.jpg', alt: 'Educacion financiera', isLogo: false, link: '' },
+  { src: appLa, alt: 'La Anonima App', isLogo: false, link: '' },
+  { src: tla, alt: 'Tarjeta La Anonima', isLogo: false, link: '' },
+  { src: whastapp, alt: 'Canal de WhatsApp', isLogo: false, link: '' },
+  { src: educacionFinanciera, alt: 'Educacion financiera', isLogo: false, link: '' },
   { src: 'https://cdn.laanonima.com/tripleimpacto/logo.png', alt: 'Triple Impacto', isLogo: true, link: 'https://www.laanonima.com.ar/empresa/triple-impacto/' },
 ];
+
+const FADE_MS = 300;
 
 export function SplashScreen({ onFinish }: SplashScreenProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fading, setFading] = useState(false);
+
+  useEffect(() => {
+    splashImages.forEach(({ src }) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,7 +42,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
           return prev + 1;
         });
         setFading(false);
-      }, 400);
+      }, FADE_MS);
     }, 2500);
 
     return () => clearInterval(timer);
@@ -38,9 +51,10 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center">
       <div className="relative w-full max-w-sm mx-auto px-6">
-        <div className={`transition-opacity duration-400 ${fading ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`transition-opacity duration-300 ${fading ? 'opacity-0' : 'opacity-100'}`}>
           {splashImages[currentIndex].link ? (
             <a
+              key={currentIndex}
               href={splashImages[currentIndex].link}
               target="_blank"
               rel="noopener noreferrer"
@@ -53,7 +67,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
               />
             </a>
           ) : (
-            <div className="w-full aspect-[3/4] rounded-2xl shadow-xl overflow-hidden bg-white flex items-center justify-center">
+            <div key={currentIndex} className="w-full aspect-[3/4] rounded-2xl shadow-xl overflow-hidden bg-white flex items-center justify-center">
               <img
                 src={splashImages[currentIndex].src}
                 alt={splashImages[currentIndex].alt}

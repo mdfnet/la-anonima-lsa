@@ -7,7 +7,7 @@ interface QuickActionDisplayProps {
 }
 
 export function QuickActionDisplay({ message, onClose }: QuickActionDisplayProps) {
-  const { speaking } = useAccessibility();
+  const { speaking, speak, ttsEnabled } = useAccessibility();
 
   if (!message) return null;
 
@@ -45,6 +45,17 @@ export function QuickActionDisplay({ message, onClose }: QuickActionDisplayProps
       <p className="text-3xl sm:text-5xl font-bold text-gray-900 leading-tight max-w-3xl">
         {message}
       </p>
+
+      {ttsEnabled && (
+        <button
+          onClick={() => speak(message)}
+          className="btn-secondary mt-8 flex items-center gap-2"
+          aria-label="Volver a escuchar el mensaje"
+        >
+          <Volume2 size={20} />
+          Escuchar de nuevo
+        </button>
+      )}
 
       <button onClick={onClose} className="btn-primary mt-12">
         Listo

@@ -11,6 +11,7 @@ import { InterpreterScreen } from './screens/InterpreterScreen';
 import { AvatarScreen } from './screens/AvatarScreen';
 import { HelpScreen } from './screens/HelpScreen';
 import { AboutScreen } from './screens/AboutScreen';
+import diversidad from './assets/diversidad.jpg';
 
 function AppContent() {
   const [showSplash, setShowSplash] = useState(true);
@@ -46,7 +47,7 @@ function AppContent() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 relative">
       <img
-        src="/diversidad.jpg"
+        src={diversidad}
         alt="Diversidad e Inclusión"
         className="fixed top-20 right-4 w-14 h-14 sm:w-16 sm:h-16 opacity-75 pointer-events-none select-none z-40"
       />

@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { WifiOff, AlertTriangle, RefreshCw } from 'lucide-react';
+import { WifiOff, AlertTriangle, RefreshCw, ArrowLeft } from 'lucide-react';
 
 interface SignLanguageFrameProps {
   src: string;
   title: string;
-  heightClass: string;
+  onBack: () => void;
 }
 
 const LOAD_TIMEOUT_MS = 12000;
 
-export function SignLanguageFrame({ src, title, heightClass }: SignLanguageFrameProps) {
+export function SignLanguageFrame({ src, title, onBack }: SignLanguageFrameProps) {
   const [status, setStatus] = useState<'loading' | 'ready' | 'offline' | 'error'>('loading');
   const [attempt, setAttempt] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -37,7 +37,16 @@ export function SignLanguageFrame({ src, title, heightClass }: SignLanguageFrame
   }
 
   return (
-    <div className={`rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white relative ${heightClass}`}>
+    <div className="fixed inset-0 z-[95] bg-white" role="region" aria-label={title}>
+      <button
+        onClick={onBack}
+        className="absolute top-4 left-4 z-20 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/95 backdrop-blur-md shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors focus:outline-none focus:ring-4 focus:ring-brand-200"
+        aria-label="Volver a servicios"
+      >
+        <ArrowLeft size={20} className="text-gray-700" />
+        <span className="text-sm font-semibold text-gray-700">Volver</span>
+      </button>
+
       {status !== 'ready' && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-white px-6 text-center">
           {status === 'loading' ? (
@@ -82,7 +91,7 @@ export function SignLanguageFrame({ src, title, heightClass }: SignLanguageFrame
         key={attempt}
         src={src}
         title={title}
-        className={`w-full ${heightClass}`}
+        className="w-full h-full"
         allow="camera; microphone"
         onLoad={handleLoad}
         onError={handleError}
